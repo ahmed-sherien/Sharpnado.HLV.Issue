@@ -7,19 +7,29 @@ using Xamarin.Forms;
 
 using Sharpnado.HLV.Issue.Models;
 using Sharpnado.HLV.Issue.Views;
+using Sharpnado.HLV.Issue.Navigation;
 
 namespace Sharpnado.HLV.Issue.ViewModels
 {
     public class ItemsViewModel : BaseViewModel
     {
+        private INavigationService _navigationService;
+
         public ObservableCollection<Item> Items { get; set; }
         public Command LoadItemsCommand { get; set; }
+        public Command ShowItemDetailsCommand { get; set; }
 
         public ItemsViewModel()
         {
+            _navigationService = new NavigationService();
             Title = "Browse";
             Items = new ObservableCollection<Item>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
+
+            ShowItemDetailsCommand = new Command(async (item) =>
+            {
+                await _navigationService.NavigateTo(PageType.Item, new ItemDetailViewModel((Item)item));
+            });
 
             MessagingCenter.Subscribe<NewItemPage, Item>(this, "AddItem", async (obj, item) =>
             {

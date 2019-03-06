@@ -4,15 +4,14 @@ using System.Text;
 
 namespace Sharpnado.HLV.Issue.Models
 {
-    public enum MenuItemType
-    {
-        Browse,
-        About
-    }
     public class HomeMenuItem
     {
-        public MenuItemType Id { get; set; }
+        public PageType Id { get; set; }
 
         public string Title { get; set; }
+
+        public Func<string> Badge { get; set; } = () => string.Empty;
+
+        public Func<bool> IsEnabled { get; set; } = () => true;
     }
 }

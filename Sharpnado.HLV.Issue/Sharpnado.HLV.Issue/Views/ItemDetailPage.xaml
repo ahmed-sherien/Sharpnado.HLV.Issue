@@ -2,8 +2,26 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Sharpnado.HLV.Issue.Views.ItemDetailPage"
-             Title="{Binding Title}">
+             xmlns:sharpnado="clr-namespace:Sharpnado.Presentation.Forms.RenderedViews;assembly=Sharpnado.Presentation.Forms"
+             Title="{Binding Title}" x:Name="PageName">
     <StackLayout Spacing="20" Padding="15">
+        <sharpnado:HorizontalListView ItemsSource="{Binding Media}" ListLayout="Carousel" HeightRequest="150" IsVisible="{Binding HasMedia}">
+            <sharpnado:HorizontalListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <sharpnado:MaterialFrame VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                            <Grid>
+                                <Image Source="{Binding ImageURL}" Aspect="AspectFill" />
+                                <ImageButton Source="play_arrow.png" Aspect="AspectFill" HorizontalOptions="Center" VerticalOptions="Center"
+                                            WidthRequest="50" HeightRequest="50" IsVisible="{Binding IsVideo}" BackgroundColor="Transparent"
+                                            Command="{Binding Path=BindingContext.OpenLinkCommand, Source={x:Reference Name=PageName}}"
+                                            CommandParameter="{Binding MediaURL}"/>
+                            </Grid>
+                        </sharpnado:MaterialFrame>
+                    </ViewCell>
+                </DataTemplate>
+            </sharpnado:HorizontalListView.ItemTemplate>
+        </sharpnado:HorizontalListView>
         <Label Text="Text:" FontSize="Medium" />
         <Label Text="{Binding Item.Text}" FontSize="Small"/>
         <Label Text="Description:" FontSize="Medium" />

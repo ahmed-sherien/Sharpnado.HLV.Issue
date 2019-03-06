@@ -2,10 +2,26 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Sharpnado.HLV.Issue.Views.MenuPage"
+             xmlns:vm="clr-namespace:Sharpnado.HLV.Issue.ViewModels"
+             xmlns:behaviors="clr-namespace:Sharpnado.HLV.Issue.Behaviors"
+             xmlns:converters="clr-namespace:Sharpnado.HLV.Issue.Converters"
              Title="Menu">
+    <ContentPage.BindingContext>
+        <vm:MenuViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <converters:SelectedItemEventArgsToSelectedItemConverter x:Key="SelectedItemConverter"/>
+    </ContentPage.Resources>
     <StackLayout VerticalOptions="FillAndExpand">
         <ListView x:Name="ListViewMenu"
-                    HasUnevenRows="True">
+                  ItemSelected="ListViewMenu_ItemSelected"
+                    HasUnevenRows="True"
+                  ItemsSource="{Binding MenuItems}">
+            <ListView.Behaviors>
+                <behaviors:EventToCommandBehavior EventName="ItemSelected"
+                                                  Command="{Binding NavigateCommand}"
+                                                  Converter="{StaticResource SelectedItemConverter}"/>
+            </ListView.Behaviors>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
