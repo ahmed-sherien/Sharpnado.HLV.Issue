@@ -22,6 +22,10 @@
                 </DataTemplate>
             </sharpnado:HorizontalListView.ItemTemplate>
         </sharpnado:HorizontalListView>
+        <Button Margin="0,10,0,0" Text="About"
+                        Command="{Binding AboutCommand}"
+                        BackgroundColor="Red"
+                        TextColor="White" />
         <Label Text="Text:" FontSize="Medium" />
         <Label Text="{Binding Item.Text}" FontSize="Small"/>
         <Label Text="Description:" FontSize="Medium" />

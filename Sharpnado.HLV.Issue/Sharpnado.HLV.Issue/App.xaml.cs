@@ -2,6 +2,7 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Sharpnado.HLV.Issue.Views;
+using Sharpnado.HLV.Issue.Navigation;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Sharpnado.HLV.Issue
@@ -13,6 +14,7 @@ namespace Sharpnado.HLV.Issue
         {
             InitializeComponent();
 
+            DependencyService.Register<NavigationService>();
 
             MainPage = new MainPage();
         }

@@ -3,17 +3,21 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Sharpnado.HLV.Issue.Models;
+using Sharpnado.HLV.Issue.Navigation;
 using Xamarin.Forms;
 
 namespace Sharpnado.HLV.Issue.ViewModels
 {
     public class ItemDetailViewModel : BaseViewModel
     {
+        private INavigationService _navigation => DependencyService.Get<INavigationService>();
+
         public ObservableCollection<MediaItem> Media { get; set; }
         public bool HasMedia { get; set; }
         public Item Item { get; set; }
 
         public Command<string> OpenLinkCommand { get; set; }
+        public Command AboutCommand { get; set; }
 
         public ItemDetailViewModel(Item item = null)
         {
@@ -38,6 +42,8 @@ namespace Sharpnado.HLV.Issue.ViewModels
 
                 Device.OpenUri(new Uri(url));
             });
+
+            AboutCommand = new Command(async () => await _navigation.NavigateTo(PageType.About));
         }
     }
 }

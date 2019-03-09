@@ -6,6 +6,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Sharpnado.Presentation.Forms.Droid;
 
 namespace Sharpnado.HLV.Issue.Droid
 {
@@ -18,6 +19,7 @@ namespace Sharpnado.HLV.Issue.Droid
             ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(savedInstanceState);
+            SharpnadoInitializer.Initialize();
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
         }

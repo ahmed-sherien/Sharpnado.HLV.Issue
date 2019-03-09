@@ -13,7 +13,7 @@ namespace Sharpnado.HLV.Issue.ViewModels
 {
     public class ItemsViewModel : BaseViewModel
     {
-        private INavigationService _navigationService;
+        private INavigationService _navigation => DependencyService.Get<INavigationService>();
 
         public ObservableCollection<Item> Items { get; set; }
         public Command LoadItemsCommand { get; set; }
@@ -21,14 +21,13 @@ namespace Sharpnado.HLV.Issue.ViewModels
 
         public ItemsViewModel()
         {
-            _navigationService = new NavigationService();
             Title = "Browse";
             Items = new ObservableCollection<Item>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
             ShowItemDetailsCommand = new Command(async (item) =>
             {
-                await _navigationService.NavigateTo(PageType.Item, new ItemDetailViewModel((Item)item));
+                await _navigation.NavigateTo(PageType.Item, new ItemDetailViewModel((Item)item));
             });
 
             MessagingCenter.Subscribe<NewItemPage, Item>(this, "AddItem", async (obj, item) =>
